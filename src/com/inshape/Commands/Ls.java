@@ -4,12 +4,10 @@ import com.inshape.Command;
 import com.inshape.CommandRegister;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Ls extends Command {
-    String name = "ls";
 
-    public int execute(String[] args) throws IOException {
+    public int execute(String[] args) {
         File wd = new File(CommandRegister.getInstance().getCWD());
 
         File[] files = wd.listFiles();

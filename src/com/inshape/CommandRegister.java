@@ -34,6 +34,7 @@ public class CommandRegister {
             register = new HashMap();
             register.put("ls", new Ls());
             register.put("cd", new Cd());
+            register.put("cat", new Cat());
             register.put("exit", new Exit());
         } catch (Exception e) {
             e.printStackTrace();

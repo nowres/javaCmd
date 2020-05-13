@@ -6,14 +6,12 @@ import com.inshape.CommandRegister;
 import java.io.File;
 
 public class Cd extends Command {
-    String name = "cd";
 
     public int execute(String[] args) {
         if (args.length > 1) {
             String targetPath = args[1];
             File file = new File(targetPath);
             if (file.exists() && file.isDirectory()) {
-                System.out.println("switching to " + targetPath);
                 CommandRegister.getInstance().setCWD(targetPath);
             }
         } else {
