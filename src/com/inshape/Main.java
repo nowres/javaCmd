@@ -2,31 +2,32 @@ package com.inshape;
 
 import com.inshape.Exceptions.CommandNotFoundException;
 
-import java.io.IOException;
-
 public class Main {
     private static int EXIT = -27;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         int c;
         int ret = 0;
-        String cwd = new java.io.File( "." ).getCanonicalPath();
-        CommandRegister register = new CommandRegister();
-        register.load();
+        CommandRegister commandRegister = CommandRegister.getInstance();
+        commandRegister.load();
 
         do {
-            String cmdName = "";
+            String cwd = commandRegister.getCWD();
+            String cmdLine = "";
             try {
                 System.out.print(cwd + "> ");
 
                 while ((c = System.in.read()) != '\n') {
-                    cmdName += (char) c;
+                    cmdLine += (char) c;
                 }
 
-                if (cmdName != "") {
+                if (cmdLine != "") {
+                    String[] cmdArgs = cmdLine.split(" ");
+                    String cmdName = cmdArgs[0];
+
                     try {
-                        Command cmd = register.getCommand(cmdName);
-                        ret = cmd.execute(args);
+                        Command cmd = commandRegister.getCommand(cmdName);
+                        ret = cmd.execute(cmdArgs);
                     } catch (CommandNotFoundException e) {
                         System.out.println("ERROR: Command not found");
                     } catch (Exception e) {
